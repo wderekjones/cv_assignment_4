@@ -8,4 +8,7 @@ from utils import *
 import h5py
 
 
-train_data = make_dataset("surf")
+surf_train_data = make_dataset("surf")
+alex_train_data = make_dataset("alex")
+print surf_train_data
+print alex_train_data

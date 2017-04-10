@@ -5,21 +5,39 @@ import numpy as np
 
 def make_dataset(feature_type):
     train_data = pd.read_csv("data/metadata/train.csv")
-    features = np.array([])
-    print features.shape
 
+    min_feats = 99999999
+    data_size = 0
+    for filepath in train_data["filename"]:
+        feats_i = load_surf_features(filepath)
+        feats_i = np.transpose(feats_i)
+        if feats_i.shape[0] < min_feats:
+            min_feats = feats_i.shape[0]
+        #print feats_i.shape[0]
+        data_size+=1
+
+    features = []
 
     if feature_type == "surf":
+        i = 0
+        features = np.zeros([data_size, (64 * min_feats)])
+
         for filepath in train_data["filename"]:
             feats_i = load_surf_features(filepath)
             feats_i = np.transpose(feats_i)
-            print feats_i.shape
-            #features = np.concatenate((features,feats_i),axis=0)
+            feats_i = feats_i[0:min_feats,:]
+            feats_i = np.ndarray.flatten(feats_i)
+            features[i] = feats_i
+            i+=1
     elif feature_type == "alex":
+        i = 0
+        features = np.zeros([data_size,4096])
+
         for filepath in train_data["filename"]:
             feats_i = load_alex_net_image_features(filepath)
-            print feats_i.shape
-            #features = np.concatenate((features,feats_i),axis=0)
+            feats_i = np.ndarray.flatten(feats_i)
+            features[i] = feats_i
+            i+=1
     return features
 
 def load_surf_features(path):
