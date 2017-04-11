@@ -6,6 +6,8 @@ import numpy as np
 def make_dataset(feature_type):
     train_data = pd.read_csv("data/metadata/train.csv")
 
+    labels = train_data["classid"]
+
     min_feats = 99999999
     data_size = 0
     for filepath in train_data["filename"]:
@@ -38,7 +40,7 @@ def make_dataset(feature_type):
             feats_i = np.ndarray.flatten(feats_i)
             features[i] = feats_i
             i+=1
-    return features
+    return features,labels
 
 def load_surf_features(path):
     path = path+".h5"
