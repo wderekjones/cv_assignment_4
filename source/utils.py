@@ -55,6 +55,7 @@ def load_alex_net_image_features(path):
     path = path +".h5"
     image_features = h5py.File(path)
     image_features = image_features.values()
+    type(image_features)
     image_features[0] = np.array(image_features[0])
     image_features = image_features[0]
 
