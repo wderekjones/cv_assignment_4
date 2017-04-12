@@ -1,27 +1,25 @@
-import numpy as np
-import matplotlib.pyplot as plt
-
-
-from sklearn import svm
-from skimage.io import imread,imshow
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
 from utils import *
-import h5py
+
+codebook = make_codebook("data/metadata/train.csv",50,40)
+
+surf_train_data,train_labels = get_codebook_features_labels("data/metadata/train.csv",codebook)
+surf_test_data,test_labels = get_codebook_features_labels("data/metadata/test.csv",codebook)
 
 
-surf_train_data,labels1 = make_dataset("surf")
-alex_train_data, labels2 = make_dataset("alex")
 
-clf = svm.SVC()
-clf.fit(alex_train_data,labels1)
+rForest_clf = RandomForestClassifier(n_estimators = 100)
+rForest_clf.fit(surf_train_data,train_labels)
 
 # evaluate classifier performance
-num_correct = 0
 
-for i in xrange(0,alex_train_data.shape[0]):
-    pred = clf.predict(alex_train_data[i,:])
-    if pred == labels1[i]:
-        num_correct +=1
+forest_train_preds = rForest_clf.predict(surf_train_data)
+forest_train_accuracy = accuracy_score(train_labels,forest_train_preds)
 
-print "surf features accuracy: "+str(num_correct/float(surf_train_data.shape[0]))
+forest_test_preds = rForest_clf.predict(surf_test_data)
+forest_test_accuracy = accuracy_score(test_labels,forest_test_preds)
 
+print "random forest surf features accuracy (train): "+str(forest_train_accuracy)
+print "random forest surf features accuracy (test): "+str(forest_test_accuracy)
 
