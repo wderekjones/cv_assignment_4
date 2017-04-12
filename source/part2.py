@@ -2,7 +2,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from utils import *
 
-codebook = make_codebook("data/metadata/train.csv",50,20)
+codebook = make_codebook("data/metadata/train.csv",50,40)
 
 surf_train_data,train_labels = get_codebook_features_labels("data/metadata/train.csv",codebook)
 surf_test_data,test_labels = get_codebook_features_labels("data/metadata/test.csv",codebook)
