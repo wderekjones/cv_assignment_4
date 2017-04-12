@@ -9,7 +9,7 @@ surf_test_data,test_labels = get_codebook_features_labels("data/metadata/test.cs
 
 
 
-rForest_clf = RandomForestClassifier(n_estimators = 100)
+rForest_clf = RandomForestClassifier(n_estimators = 10)
 rForest_clf.fit(surf_train_data,train_labels)
 
 # evaluate classifier performance
