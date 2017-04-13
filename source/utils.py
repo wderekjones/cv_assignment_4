@@ -63,7 +63,7 @@ def make_codebook(path,size,num_words):
         feats_i = load_surf_features(filepath)
         feats_i = np.transpose(feats_i)
 
-        if feats_i.shape[0] >= num_words: # throw out samples with smaller number of features than the number of features we would like to extract
+        if feats_i.shape[0] >= num_words: # throw out samples with smaller number of features than the min number of features we would like to extract
             rand_indices = np.unique(np.random.choice(feats_i.shape[0],num_words,replace=False))
             for index in rand_indices:
                 codebook_feats.append(feats_i[index])

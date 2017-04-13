@@ -9,7 +9,7 @@ surf_train_data,train_labels = get_codebook_features_labels("data/metadata/train
 surf_test_data,test_labels = get_codebook_features_labels("data/metadata/test.csv",codebook,500)
 
 
-rForest_clf = RandomForestClassifier(n_estimators = 10,criterion="entropy")
+rForest_clf = RandomForestClassifier(n_estimators = 100,criterion="entropy")
 
 
 scores = cross_val_score(rForest_clf,surf_train_data,train_labels,cv=5)
