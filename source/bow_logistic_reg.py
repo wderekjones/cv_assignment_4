@@ -16,7 +16,7 @@ scores = cross_val_score(logistic_clf,surf_train_data,train_labels,cv=5)
 
 avg_score = np.mean(scores,axis=0)
 
-print "random forest surf features accuracy (kfold cross-val train) "+str(avg_score)
+print "logistic regression surf features accuracy (kfold cross-val train) "+str(avg_score)
 
 logistic_clf.fit(surf_train_data,train_labels)
 
@@ -28,8 +28,8 @@ logistic_train_accuracy = accuracy_score(train_labels,logistic_train_preds)
 logistic_test_preds = logistic_clf.predict(surf_test_data)
 logistic_test_accuracy = accuracy_score(test_labels,logistic_test_preds)
 
-print "random forest surf features accuracy (train-full): "+str(logistic_train_accuracy)
-print "random forest surf features accuracy (test): "+str(logistic_test_accuracy)
+print "logistic regression surf features accuracy (train-full): "+str(logistic_train_accuracy)
+print "logistic regression surf features accuracy (test): "+str(logistic_test_accuracy)
 
 
 confusion = confusion_matrix(test_labels,logistic_test_preds)
