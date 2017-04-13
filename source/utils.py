@@ -8,10 +8,14 @@ from sklearn.cluster import KMeans
 def get_codebook_features_labels(path,codebook,sample_size):
     train_data = pd.read_csv(path)
 
+    if sample_size == None:
+        sample_size = train_data.shape[0]
+
     # select a subset of the data of size sample_size to make the computation more efficient
     train_data = train_data.sample(sample_size)
 
     labels = train_data["classid"]
+    labels = labels.as_matrix()
 
     features = np.zeros([train_data.shape[0],codebook.cluster_centers_.shape[0]])
 
@@ -33,16 +37,22 @@ def get_codebook_features_labels(path,codebook,sample_size):
 
     features = np.asarray(features)
 
+    for i in xrange(0,labels.shape[0]):
+        labels[i] = labels[i] - 1
+
     return features,labels
 
 
 def get_alex_feats_labels(path,sample_size):
     train_data = pd.read_csv(path)
 
+    if sample_size == None:
+        sample_size = train_data.shape[0]
     # in order to decrease computation burden, select a random sample of the rows equivalent of size sample_size
     train_data = train_data.sample(sample_size)
 
     labels = train_data["classid"]
+    labels = labels.as_matrix()
 
     i = 0
     features = np.zeros([sample_size,4096])
@@ -52,6 +62,10 @@ def get_alex_feats_labels(path,sample_size):
         feats_i = np.ndarray.flatten(feats_i)
         features[i] = feats_i
         i+=1
+
+    for i in xrange(0,labels.shape[0]):
+        labels[i] = labels[i] - 1
+
     return features,labels
 
 
