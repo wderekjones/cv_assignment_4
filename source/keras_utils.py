@@ -42,6 +42,19 @@ def model0():
 
     return model
 
+def model1():
+    model = Sequential()
+    model.add(Dense(2048,activation='tanh',input_shape=(4096,)))
+    model.add(Dropout(0.5))
+    model.add(Dense(1024,activation='tanh'))
+    model.add(Dropout(0.5))
+    model.add(Dense(512,activation='tanh'))
+    model.add(Dropout(0.5))
+    model.add(Dense(256,activation='tanh'))
+    model.add(Dropout(0.5))
+    model.add(Dense(101,activation='softmax'))
+
+    return model
 
 def compile_model(model, learning_rate):
     model.compile(optimizer=Adam(lr=learning_rate), loss='categorical_crossentropy', metrics=['accuracy'])
