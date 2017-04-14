@@ -44,12 +44,21 @@ I train a random forest with $n = 500$ decision stumps. The random forest achiev
 \includegraphics[scale=0.10]{alex_net_random_forest_confusion_results.jpg}
 
 
-\subsection{Logistic Regression}
+\subsection{Logistic Regression(Extra Credit)}
 I train a logistic regression classifier with default parameters. The logistic classifier achieves an average cross validation accuracy of 81\% accuracy, perfectly classifies the full training set, and achieves a testing accuracy of approximately 57.6\% accuracy, by far the best result.
 
 \includegraphics[scale=0.10]{alex_net_logistic_confusion_results.jpg}
 
+
+\section{Dilated Convolutional Network: AlexNet(Extra Extra Credit)}
+Finally, for extra extra credit, I use Keras to implement a convolutional network on top of the alexNet features with a 1D dilated convolution layer followed by a 1D convolution layer (no dilation) followed by a dropout layer, then finally with a fully connected softmax layer. I use tanh activations for the convolution layers. I use categorical cross entropy as my loss and ADAM with a learning rate of $\alpha = 1e-5$. I train using 5235 images as my training set and 1047 as holdout test during my training. I train the network for 1000 epochs.  My results for this implementation vastly outperform the previously mentioned methods with a test accuracy of approximately 85\%.
+
+\includegraphics[scale=0.10]{deep_dilated_conv_alex_net_confusion_results.jpg}
+
+
 \section{Conclusions}
-Overall, I found the combination of a logistic regression classifier trained with AlexNet features to be the most accurate predictor of the image class. AlexNet is able to generate informative features that are perhaps better at incorporating global information better than the bag of words features, which is a local feature aggregation method. Moreover, logistic regession is a powerful classification tool that can fit many non-linear decision problems and be quite successful.
+Overall, I found the combination of a logistic regression classifier trained with AlexNet features to be the most accurate predictor of the image class. AlexNet is able to generate informative features that are perhaps better at incorporating global information better than the bag of words features, which is a local feature aggregation method. Moreover, logistic regession is a powerful classification tool that can fit many non-linear decision problems and be quite successful. 
+
+However with modern deep learning methods, one can easily take the output of a layer in a more powerful network and use as input to another network in order to leverage the features for a different task or to add more complexity without needing to retrain the part of the network that does the heavy lifting in terms of extracting good features. My final implementation of convolutional network with dilated convolution layer vastly outperforms each of my previous methods by a large margin.
 
 \end{document}
